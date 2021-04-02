@@ -5,16 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "npm start --prefix mypatappfinder",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Anshul",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "concurrently": "^6.0.0",
     "config": "^3.3.6",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.12.2",
     "node-html-parser": "^3.1.2",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "react-router-dom": "^5.2.0"
   }
 }
