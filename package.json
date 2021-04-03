@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server",
+    "start":"node Server.js",
     "client": "npm start --prefix mypatappfinder",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

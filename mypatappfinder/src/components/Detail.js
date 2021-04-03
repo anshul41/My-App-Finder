@@ -10,7 +10,7 @@ const Detail = ({ match }) => {
       setImages(
         res.data.images.map((image) => (
           <div className='col-md-3'>
-            <img alt='' src={image} height='300' width='200' />
+            <img key={app._id} alt='' src={image} height='300' width='200' />
           </div>
         ))
       );
@@ -18,6 +18,7 @@ const Detail = ({ match }) => {
         res.data.videos.map((video) => (
           <div className='col-md-3'>
             <iframe
+              key={app._id}
               className='iframe'
               title={app.name}
               width='300'
@@ -28,7 +29,7 @@ const Detail = ({ match }) => {
         ))
       );
     });
-  }, [match.params.id, app.name]);
+  }, [match.params.id, app.name, app._id]);
 
   return (
     <div className='App container'>

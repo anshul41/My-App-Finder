@@ -4,9 +4,9 @@ const { default: parse } = require('node-html-parser');
 const connectDB = require('./config/db');
 const Apps = require('./Models/Application');
 const cors = require('cors');
-
-connectDB();
-
+const mongoUri=process.env.Mongo_Key || "addURIForDev";
+connectDB(mongoUri);
+console.log(mongoUri);
 const app = express();
 const port = process.env.PORT || 4200;
 app.use(cors());

@@ -22,8 +22,7 @@ const Landing = () => {
       <a href={'http://localhost:3000/apps/' + app.appid}>
         <img src={app.mainImage} className='card-img-top' alt='...' />
         <div className='card-body'>
-          <h5 className='card-title'>
-            {' '}
+          <h5 className='card-title'>            
             {app.name
               .replace('&amp; ', '')
               .replace('- Apps on Google Play', '')}
@@ -40,7 +39,7 @@ const Landing = () => {
         <div className='header-right'>
           <span>
             <button
-              clasName='btn btn-success'
+              className='btn btn-success'
               disabled={updationProcess}
               onClick={updateApps}
             >
