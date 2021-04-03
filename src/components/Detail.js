@@ -5,7 +5,7 @@ const Detail = ({ match }) => {
   let [images, setImages] = useState([]);
   let [videos, setVideos] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:4200/api/apps/${match.params.id}`).then((res) => {
+    axios.get(`/api/apps/${match.params.id}`).then((res) => {
       setApp(res.data);
       setImages(
         res.data.images.map((image) => (
