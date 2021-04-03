@@ -35,7 +35,7 @@ const getAppData = async (appid) => {
   const Datavalues = Array.from(body.querySelectorAll('.IQ1z0d > .htlgb')).map(
     (app) => app.firstChild.rawText
   );
-  const appName = parsed.querySelector('title').firstChild.rawText;
+  const appName = parsed.querySelector('title').firstChild.rawText.toString().replace('&amp; ','').replace('- Apps on Google Play','');
   const images = Array.from(body.querySelectorAll('.Q4vdJd')).map((app) => {
     if (
       app.firstChild._attrs['src'] &&
@@ -83,15 +83,16 @@ app.get('/', async (req, res) => {
 
 app.get('/apps', async (req, res) => {
   try{
-  let apps = await Apps.find().select(['name', 'mainImage','ratings','offeredBy','appid']);
+  let apps = await Apps.find().select(['name', 'mainImage','ratings','OfferedBy','appid']);
   if (Array.from(apps).length == 0) {
     await getAllApps();
-    apps = await Apps.find().select(['name', 'mainImage','ratings','offeredBy','appid']);
+    apps = await Apps.find().select(['name', 'mainImage','ratings','OfferedBy','appid']);
   }
   res.json(apps);
 }
   catch(err)
   {
+    console.log(err);
     res.status(400).json({msg:'server error'});
   }
 });
@@ -99,11 +100,12 @@ app.get('/apps', async (req, res) => {
 app.get('/apps/update', async (req, res) => {
   try{
     await getAllApps();
-  let apps = await Apps.find().select(['name', 'mainImage','ratings','offeredBy','appid']);
+  let apps = await Apps.find().select(['name', 'mainImage','ratings','OfferedBy','appid']);
   res.json(apps);
   }
   catch(err)
   {
+    console.log(err);
     res.status(400).json({msg:'server error'});
   }
   

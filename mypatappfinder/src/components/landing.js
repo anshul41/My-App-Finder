@@ -12,26 +12,44 @@ const Landing = () => {
 
   const updateApps = () => {
     setUpdationProcess(true);
-    axios.get(`${BaseUrl}update`).then((res) => {
-      console.log('apps updated');
+    axios.get(`${BaseUrl}update`).then((res) => {      
       setApps(res.data);
       setUpdationProcess(false);
     });
   };
   apps = apps.map((app) => (
-    <div key={app._id}>
-      <a href={BaseUrl + app.appid}>{app.name}</a>
-      <h1>{app.name}</h1>
-      <img alt={app.name} src={app.mainImage} height='100' width='100' />
+    <div className='card' style={{ width: '18rem' }} key={app._id}>
+      <a href={'http://localhost:3000/apps/' + app.appid}>
+        <img src={app.mainImage} className='card-img-top' alt='...' />
+        <div className='card-body'>
+          <h5 className='card-title'>
+            {' '}
+            {app.name
+              .replace('&amp; ', '')
+              .replace('- Apps on Google Play', '')}
+          </h5>
+          <h5 className='card-title'> Ratings:{app.ratings}</h5>
+          <h5 className='card-title'> Developer:{app.OfferedBy}</h5>
+        </div>
+      </a>
     </div>
   ));
   return (
-    <div className='App container'>
-      <button disabled={updationProcess} onClick={updateApps}>
-        Update Apps
-      </button>
-      Total Apps: {apps.length}
-      {apps}
+    <div className='App container'>   
+        
+        <div className='header-right'>
+          <span>
+            <button
+              clasName='btn btn-success'
+              disabled={updationProcess}
+              onClick={updateApps}
+            >
+              {updationProcess ? 'In-Progress' : 'Update Apps'}
+            </button>
+          </span>
+        </div>
+    
+      <div className='wrapper'>{apps}</div>
     </div>
   );
 };
