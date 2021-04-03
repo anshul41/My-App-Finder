@@ -9,10 +9,9 @@ function App() {
     <div className='App container'>
       <Router>
         <Navbar />
-        <Fragment>
-          <Route exact path='/' component={Landing} />
+        <Fragment>          
           <Switch>
-            <Route exact path='/apps' component={Landing} />
+            <Route exact path='/' component={Landing} />
             <Route path='/apps/:id' render={(props) => <Detail {...props} />} />
           </Switch>
         </Fragment>

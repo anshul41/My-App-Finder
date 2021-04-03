@@ -4,7 +4,7 @@ const { default: parse } = require('node-html-parser');
 const connectDB = require('./config/db');
 const Apps = require('./Models/Application');
 const cors = require('cors');
-const mongoUri=process.env.Mongo_Key || "addURIForDev";
+const mongoUri = process.env.Mongo_Key || "dev_uri";
 connectDB(mongoUri);
 console.log(mongoUri);
 const app = express();
@@ -77,11 +77,13 @@ const getAppData = async (appid) => {
   return singleAppData;
 };
 
-app.get('/', async (req, res) => {
+
+
+app.get('/api', async (req, res) => {
   res.json({ msg: 'Api Is Running' });
 });
 
-app.get('/apps', async (req, res) => {
+app.get('/api/apps', async (req, res) => {
   try{
   let apps = await Apps.find().select(['name', 'mainImage','ratings','OfferedBy','appid']);
   if (Array.from(apps).length == 0) {
@@ -97,7 +99,7 @@ app.get('/apps', async (req, res) => {
   }
 });
 
-app.get('/apps/update', async (req, res) => {
+app.get('/api/apps/update', async (req, res) => {
   try{
     await getAllApps();
   let apps = await Apps.find().select(['name', 'mainImage','ratings','OfferedBy','appid']);
@@ -111,9 +113,12 @@ app.get('/apps/update', async (req, res) => {
   
 });
 
-app.get('/apps/:id', async (req, res) => {
+app.get('/api/apps/:id', async (req, res) => {
   const app = await Apps.findOne({ appid: req.params.id })
   res.json(app);
 });
 
+
+app.use(express.static('build'));
+app.use('*', express.static('build/index.html'));
 app.listen(port, () => console.log(`Example app listening on ${port} port!`));

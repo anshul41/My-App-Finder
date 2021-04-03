@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const Landing = () => {
-  const BaseUrl = 'http://localhost:4200/apps/';
+const Landing = ({history}) => {
+  const BaseUrl = '/api/apps/';
   let [apps, setApps] = useState([]);
   let [updationProcess, setUpdationProcess] = useState(false);
   useEffect(() => {
@@ -18,10 +18,9 @@ const Landing = () => {
     });
   };
   apps = apps.map((app) => (
-    <div className='card' style={{ width: '18rem' }} key={app._id}>
-      <a href={'http://localhost:3000/apps/' + app.appid}>
-        <img src={app.mainImage} className='card-img-top' alt='...' />
-        <div className='card-body'>
+    <div onClick={()=>history.push('/apps/' + app.appid)} className='card' style={{ width: '18rem' }} key={app._id}>
+     
+        <img src={app.mainImage} className='card-img-top' alt='...' />        <div className='card-body'>
           <h5 className='card-title'>            
             {app.name
               .replace('&amp; ', '')
@@ -29,8 +28,7 @@ const Landing = () => {
           </h5>
           <h5 className='card-title'> Ratings:{app.ratings}</h5>
           <h5 className='card-title'> Developer:{app.OfferedBy}</h5>
-        </div>
-      </a>
+        </div>      
     </div>
   ));
   return (
